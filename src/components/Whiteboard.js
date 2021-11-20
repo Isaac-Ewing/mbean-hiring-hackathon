@@ -157,9 +157,11 @@ export default function Whiteboard() {
           .select()
           .range(0, 200)
           .order('id', { ascending: false });
-        data.forEach((item) => {
-          onDrawingEvent(item.whiteboard_data);
-        });
+        console.log(data);
+        if (data.x0 && data.y0) {
+          data.forEach((item) => {
+            onDrawingEvent(item.whiteboard_data);
+          });
         whiteBoardMemory = supabase
           .from('whiteboard')
           .on('*', (payload) => {
@@ -167,20 +169,22 @@ export default function Whiteboard() {
             onDrawingEvent(payload.new.whiteboard_data);
           })
           .subscribe();
-      }
+      } }
     };
     getWhiteBoardMemory();
   }, []);
 
-  // ---------------- Clear All drawings --------------------------------------
-
-  const clear = () => {
+  const clear = async (event) => {
+    event.preventDefault();
+      const { data, error } = await supabase
+          .from('whiteboard')
+          .delete()
+          .gt('id', 0);
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
+    // this.history.push('/');
   };
-
-  // ------------- The Canvas and color elements --------------------------
 
   return (
     <div>
