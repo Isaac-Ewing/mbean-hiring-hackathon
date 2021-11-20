@@ -6,7 +6,6 @@ const AppContext = createContext({});
 const AppContextProvider = ({ children }) => {
   const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
   const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
-  console.log(supabaseKey,supabaseUrl, "HERERE");
   const supabase = createClient(supabaseUrl, supabaseKey);
 
   return (
