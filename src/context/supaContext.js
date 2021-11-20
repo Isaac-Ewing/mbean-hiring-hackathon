@@ -4,9 +4,10 @@ import { createClient } from "@supabase/supabase-js";
 const AppContext = createContext({});
 
 const AppContextProvider = ({ children }) => {
-  const Url = import.meta.env.SUPABASE_URL;
-  const Key = import.meta.env.SUPABASE_KEY;
-  const supabase = createClient(Url, Key);
+  const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+  const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
+  console.log(supabaseKey,supabaseUrl, "HERERE");
+  const supabase = createClient(supabaseUrl, supabaseKey);
 
   return (
     <AppContext.Provider
