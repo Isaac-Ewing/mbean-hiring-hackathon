@@ -21,21 +21,18 @@ export default function Whiteboard() {
     console.log(colors, 'the colors');
     console.log(test);
     const current = {
-      color: 'black',
+      color: colors.value,
     };
 
     // helper that will update the current color
     const onColorUpdate = (e) => {
-      current.color = e.target.className.split(' ')[1];
+      current.color = e.target.value;
     };
 
-    // loop through the color elements and add the click event listeners
     for (let i = 0; i < colors.length; i++) {
       colors[i].addEventListener('click', onColorUpdate, false);
     }
     let drawing = false;
-
-    // ------------------------------- create the drawing ----------------------------
 
     const drawLine = async (x0, y0, x1, y1, color, emit) => {
       context.beginPath();
@@ -202,11 +199,19 @@ export default function Whiteboard() {
       <canvas ref={canvasRef} id='canvas' className='whiteboard' />
 
       <div ref={colorsRef} className='colors'>
+        <input
+          className='color'
+          ref={colorsRef}
+          id='color'
+          type='color'
+          onClick={onColorUpdate()}
+        />
+        {/* 
         <div className='color black' />
         <div className='color red' />
         <div className='color green' />
         <div className='color blue' />
-        <div className='color yellow' />
+        <div className='color yellow' /> */}
         <button onClick={clear}>clearAll</button>
         <button onClick={DownloadCanvasAsImage}>Save</button>
       </div>
