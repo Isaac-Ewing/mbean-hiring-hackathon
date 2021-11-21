@@ -105,7 +105,6 @@ export default function Whiteboard() {
       );
     };
 
-
     // ----------- limit the number of events per second -----------------------
 
     const throttle = (callback, delay) => {
@@ -162,41 +161,53 @@ export default function Whiteboard() {
           data.forEach((item) => {
             onDrawingEvent(item.whiteboard_data);
           });
-        whiteBoardMemory = supabase
-          .from('whiteboard')
-          .on('*', (payload) => {
-            console.log(payload.new.whiteboard_data, 'payload');
-            onDrawingEvent(payload.new.whiteboard_data);
-          })
-          .subscribe();
-      } }
+          whiteBoardMemory = supabase
+            .from('whiteboard')
+            .on('*', (payload) => {
+              console.log(payload.new.whiteboard_data, 'payload');
+              onDrawingEvent(payload.new.whiteboard_data);
+            })
+            .subscribe();
+        }
+      }
     };
     getWhiteBoardMemory();
   }, []);
 
   const clear = async (event) => {
     event.preventDefault();
-      const { data, error } = await supabase
-          .from('whiteboard')
-          .delete()
-          .gt('id', 0);
+    const { data, error } = await supabase
+      .from('whiteboard')
+      .delete()
+      .gt('id', 0);
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
     // this.history.push('/');
   };
 
+  function DownloadCanvasAsImage(){
+    let downloadLink = document.createElement('a');
+    downloadLink.setAttribute('download', 'CanvasAsImage.png');
+    let canvas = document.getElementById('canvas');
+    let dataURL = canvas.toDataURL('image/png');
+    let url = dataURL.replace(/^data:image\/png/,'data:application/octet-stream');
+    downloadLink.setAttribute('href',url);
+    downloadLink.click();
+  }
+
   return (
     <div>
-      <canvas ref={canvasRef} className="whiteboard" />
+      <canvas ref={canvasRef} id='canvas' className='whiteboard' />
 
-      <div ref={colorsRef} className="colors">
-        <div className="color black" />
-        <div className="color red" />
-        <div className="color green" />
-        <div className="color blue" />
-        <div className="color yellow" />
+      <div ref={colorsRef} className='colors'>
+        <div className='color black' />
+        <div className='color red' />
+        <div className='color green' />
+        <div className='color blue' />
+        <div className='color yellow' />
         <button onClick={clear}>clearAll</button>
+        <button onClick={DownloadCanvasAsImage}>Save</button>
       </div>
     </div>
   );
