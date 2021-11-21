@@ -1,5 +1,5 @@
-import { createContext, useContext } from "react";
-import { createClient } from "@supabase/supabase-js";
+import { createContext, useContext } from 'react';
+import { createClient } from '@supabase/supabase-js';
 
 const AppContext = createContext({});
 
