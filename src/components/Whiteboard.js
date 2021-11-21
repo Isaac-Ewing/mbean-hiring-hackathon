@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useAppContext } from '../context/supaContext';
 import '../whiteboard.css';
 
@@ -9,33 +10,25 @@ export default function Whiteboard() {
   let whiteBoardMemory = null;
 
   useEffect(() => {
-    // --------------- getContext() method returns a drawing context on the canvas-----
-
     const canvas = canvasRef.current;
     const test = colorsRef.current;
     const context = canvas.getContext('2d');
-
-    // ----------------------- Colors --------------------------------------------------
 
     const colors = document.getElementsByClassName('color');
     console.log(colors, 'the colors');
     console.log(test);
     const current = {
-      color: 'black',
+      color: colors.value,
     };
 
-    // helper that will update the current color
     const onColorUpdate = (e) => {
-      current.color = e.target.className.split(' ')[1];
+      current.color = e.target.value;
     };
 
-    // loop through the color elements and add the click event listeners
     for (let i = 0; i < colors.length; i++) {
       colors[i].addEventListener('click', onColorUpdate, false);
     }
     let drawing = false;
-
-    // ------------------------------- create the drawing ----------------------------
 
     const drawLine = async (x0, y0, x1, y1, color, emit) => {
       context.beginPath();
@@ -105,8 +98,6 @@ export default function Whiteboard() {
       );
     };
 
-    // ----------- limit the number of events per second -----------------------
-
     const throttle = (callback, delay) => {
       let previousCall = new Date().getTime();
       return function () {
@@ -119,20 +110,15 @@ export default function Whiteboard() {
       };
     };
 
-    // -----------------add event listeners to our canvas ----------------------
-
     canvas.addEventListener('mousedown', onMouseDown, false);
     canvas.addEventListener('mouseup', onMouseUp, false);
     canvas.addEventListener('mouseout', onMouseUp, false);
     canvas.addEventListener('mousemove', throttle(onMouseMove, 10), false);
 
-    // Touch support for mobile devices
     canvas.addEventListener('touchstart', onMouseDown, false);
     canvas.addEventListener('touchend', onMouseUp, false);
     canvas.addEventListener('touchcancel', onMouseUp, false);
     canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
-
-    // -------------- make the canvas fill its parent component -----------------
 
     const onResize = () => {
       canvas.width = window.innerWidth;
@@ -142,7 +128,6 @@ export default function Whiteboard() {
     window.addEventListener('resize', onResize, false);
     onResize();
 
-    // ----------------------- socket.io connection ----------------------------
     const onDrawingEvent = (data) => {
       const w = canvas.width;
       const h = canvas.height;
@@ -154,7 +139,7 @@ export default function Whiteboard() {
         const { data, error } = await supabase
           .from('whiteboard')
           .select()
-          .range(0, 200)
+          .range(0, 1000)
           .order('id', { ascending: false });
         console.log(data);
         data.forEach((item) => {
@@ -181,7 +166,6 @@ export default function Whiteboard() {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
-    // this.history.push('/');
   };
 
   function DownloadCanvasAsImage() {
@@ -202,13 +186,16 @@ export default function Whiteboard() {
       <canvas ref={canvasRef} id='canvas' className='whiteboard' />
 
       <div ref={colorsRef} className='colors'>
+        <input className='color' ref={colorsRef} id='color' type='color' />
+        {/* 
         <div className='color black' />
         <div className='color red' />
         <div className='color green' />
         <div className='color blue' />
-        <div className='color yellow' />
+        <div className='color yellow' /> */}
         <button onClick={clear}>clearAll</button>
         <button onClick={DownloadCanvasAsImage}>Save</button>
+        <Link to='/about'>About</Link>
       </div>
     </div>
   );
