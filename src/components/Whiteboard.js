@@ -157,18 +157,16 @@ export default function Whiteboard() {
           .range(0, 200)
           .order('id', { ascending: false });
         console.log(data);
-        if (data.x0 && data.y0) {
-          data.forEach((item) => {
-            onDrawingEvent(item.whiteboard_data);
-          });
-          whiteBoardMemory = supabase
-            .from('whiteboard')
-            .on('*', (payload) => {
-              console.log(payload.new.whiteboard_data, 'payload');
-              onDrawingEvent(payload.new.whiteboard_data);
-            })
-            .subscribe();
-        }
+        data.forEach((item) => {
+          onDrawingEvent(item.whiteboard_data);
+        });
+        whiteBoardMemory = supabase
+          .from('whiteboard')
+          .on('*', (payload) => {
+            console.log(payload.new.whiteboard_data, 'payload');
+            onDrawingEvent(payload.new.whiteboard_data);
+          })
+          .subscribe();
       }
     };
     getWhiteBoardMemory();
@@ -186,13 +184,16 @@ export default function Whiteboard() {
     // this.history.push('/');
   };
 
-  function DownloadCanvasAsImage(){
+  function DownloadCanvasAsImage() {
     let downloadLink = document.createElement('a');
     downloadLink.setAttribute('download', 'CanvasAsImage.png');
     let canvas = document.getElementById('canvas');
     let dataURL = canvas.toDataURL('image/png');
-    let url = dataURL.replace(/^data:image\/png/,'data:application/octet-stream');
-    downloadLink.setAttribute('href',url);
+    let url = dataURL.replace(
+      /^data:image\/png/,
+      'data:application/octet-stream'
+    );
+    downloadLink.setAttribute('href', url);
     downloadLink.click();
   }
 
