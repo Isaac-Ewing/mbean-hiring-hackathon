@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 export default function LandingPage() {
   return (
     <div className='bio-item'>
-      <Link to='/'>Paint with Pals!</Link>
       <p className='about-description'>
         {' '}
         PaintPals allows you to chose a color and paint with others in realtime!
         You are able to save the current drawing to your device or clear the
         board for new drawing! The frontend is made with react and socket.io
-        paired with supabase to create the backend.
+        paired with supabase to create a postgreSQL backend.
       </p>
+      <Link className='nav-link' to='/'>Paint with pals!</Link>
       <div className='bio-item'>
         <img alt='Dot Kubisiak' className='portrait' src='kubiphoto.jpg' />
         <article>

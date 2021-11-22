@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../context/supaContext';
@@ -186,16 +188,13 @@ export default function Whiteboard() {
       <canvas ref={canvasRef} id='canvas' className='whiteboard' />
 
       <div ref={colorsRef} className='colors'>
+        <Link className='nav-link' to='/about'>Homepage</Link>
+        <br />
         <input className='color' ref={colorsRef} id='color' type='color' />
-        {/* 
-        <div className='color black' />
-        <div className='color red' />
-        <div className='color green' />
-        <div className='color blue' />
-        <div className='color yellow' /> */}
-        <button onClick={clear}>clearAll</button>
+      
+        <br />
+        <button onClick={clear}>clear All</button>
         <button onClick={DownloadCanvasAsImage}>Save</button>
-        <Link to='/about'>About</Link>
       </div>
     </div>
   );

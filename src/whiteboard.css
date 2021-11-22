@@ -14,16 +14,10 @@
 
 .colors {
 position: fixed;
+left: 0;
+right: 0;
 }
 
 .color {
 display: inline-block;
-height: 55px;
-width: 55px;
 }
-
-.color.black { background-color: black; }
-.color.red { background-color: red; }
-.color.green { background-color: green; }
-.color.blue { background-color: blue; }
-.color.yellow { background-color: yellow; }
