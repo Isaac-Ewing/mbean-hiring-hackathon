@@ -31,7 +31,7 @@ Link to site:
 Development: React was used to build the front end, and Supabase was used for the back end.
 Deployment: Netlify was used to deploy the front end and Supabase automatically deployed the back end.
 
-(public/mbean-pic.png)
+![the whiteboard](public/mbean-pic.png)
 
 Developers:
 .Kubisiak: LinkedIn: https://www.linkedin.com/in/kubisiak/
