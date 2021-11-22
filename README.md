@@ -35,11 +35,11 @@ Netlify was used to deploy the front end and Supabase automatically deployed the
 
 ![the whiteboard](public/mbean-pic.png)
 
-## Developers
-# .Kubisiak
+# Developers
+## .Kubisiak
 LinkedIn: https://www.linkedin.com/in/kubisiak/ \
 GitHub: https://github.com/mckubisiak
 
-# Isaac Ewing:
+## Isaac Ewing
 LinkedIn: https://www.linkedin.com/in/isaac-ewing/ \
 GitHub: https://github.com/Isaac-Ewing 
