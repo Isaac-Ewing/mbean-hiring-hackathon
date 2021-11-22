@@ -27,15 +27,19 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-Link to site: 
-Development: React was used to build the front end, and Supabase was used for the back end.
-Deployment: Netlify was used to deploy the front end and Supabase automatically deployed the back end.
+Link to site: https://paint-pals.netlify.app/
+# Development
+React was used to build the front end, and Supabase was used for the back end.
+# Deployment
+Netlify was used to deploy the front end and Supabase automatically deployed the back end.
 
 ![the whiteboard](public/mbean-pic.png)
 
-Developers:
-.Kubisiak: LinkedIn: https://www.linkedin.com/in/kubisiak/
-           GitHub: https://github.com/mckubisiak
+## Developers
+# .Kubisiak
+LinkedIn: https://www.linkedin.com/in/kubisiak/
+GitHub: https://github.com/mckubisiak
 
-Isaac Ewing: LinkedIn: https://www.linkedin.com/in/isaac-ewing-6ba3b5211/
-             GitHub: https://github.com/Isaac-Ewing
+# Isaac Ewing:
+LinkedIn: https://www.linkedin.com/in/isaac-ewing-6ba3b5211/
+GitHub: https://github.com/Isaac-Ewing
