@@ -37,9 +37,9 @@ Netlify was used to deploy the front end and Supabase automatically deployed the
 
 ## Developers
 # .Kubisiak
-LinkedIn: https://www.linkedin.com/in/kubisiak/
+LinkedIn: https://www.linkedin.com/in/kubisiak/ \
 GitHub: https://github.com/mckubisiak
 
 # Isaac Ewing:
-LinkedIn: https://www.linkedin.com/in/isaac-ewing-6ba3b5211/
-GitHub: https://github.com/Isaac-Ewing
+LinkedIn: https://www.linkedin.com/in/isaac-ewing/ \
+GitHub: https://github.com/Isaac-Ewing 
