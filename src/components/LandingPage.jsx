@@ -4,18 +4,21 @@ import { Link } from 'react-router-dom';
 export default function LandingPage() {
   return (
     <div className='bio-item'>
+        <Link className='nav-link' to='/paint'>
+          Paint with pals!
+        </Link>
       <p className='about-description'>
-        {' '}
+        <br />
         PaintPals allows you to chose a color and paint with others in realtime!
         You are able to save the current drawing to your device or clear the
         board for new drawing! The frontend is made with react and socket.io
         paired with supabase to create a postgreSQL backend.
       </p>
-      <Link className='nav-link' to='/'>Paint with pals!</Link>
+      <h1>Meet the Devs! </h1>
       <div className='bio-item'>
         <img alt='Dot Kubisiak' className='portrait' src='kubiphoto.jpg' />
         <article>
-          <h2>
+          <h3>
             .Kubisiak
             <br />
             <a
@@ -32,7 +35,7 @@ export default function LandingPage() {
             >
               <img alt='github' className='icon' src='github.png' />
             </a>
-          </h2>
+          </h3>
           <p>
             A queer trans Software Engineer. I love mutually developing with
             people and supporting everyone's common as well as individuals
@@ -53,7 +56,7 @@ export default function LandingPage() {
         />
 
         <article>
-          <h2>
+          <h3>
             Isaac Ewing
             <br />
             <a
@@ -70,7 +73,7 @@ export default function LandingPage() {
             >
               <img alt='github' className='icon' src='github.png' />
             </a>
-          </h2>
+          </h3>
           <p>
             I am a Full-stack Developer who loves to solve complex coding
             problems involving math. In my free time I enjoy playing various
