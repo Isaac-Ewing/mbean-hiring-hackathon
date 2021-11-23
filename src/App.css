@@ -39,11 +39,11 @@ p, h2 {
 
 .about-description {
   max-width:550px;
-  font-size: 1.2em;
+  font-size: 1em;
 }
 
 .nav-link {
-  font-size: 2em;
+  font-size: 1.4em;
 }
 
 input, button {

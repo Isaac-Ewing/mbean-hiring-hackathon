@@ -9,7 +9,7 @@ export default function Whiteboard() {
   const { supabase } = useAppContext();
   const canvasRef = useRef(null);
   let whiteBoardMemory = null;
-  const [paintColor, setPaintColor] = useState(null);
+  const [paintColor, setPaintColor] = useState('');
 
   const updatePaintColor = (event) => {
     setPaintColor(event.target.value);
