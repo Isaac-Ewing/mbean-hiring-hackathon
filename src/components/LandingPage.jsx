@@ -4,16 +4,16 @@ import { Link } from 'react-router-dom';
 export default function LandingPage() {
   return (
     <div className='bio-item'>
-        <Link className='nav-link' to='/paint'>
-          Paint with pals!
-        </Link>
       <p className='about-description'>
         <br />
-        PaintPals allows you to chose a color and paint with others in realtime!
-        You are able to save the current drawing to your device or clear the
-        board for new drawing! The frontend is made with react and socket.io
-        paired with supabase to create a postgreSQL backend.
+        Paint-Pals allows you to paint with others in realtime! If you accidentally
+        close out, no problem, we save the most recent strokes so you know what
+        was drawn while you were gone! You are able to save the current
+        drawing to your device or clear the board for new drawing! 
       </p>
+      <Link className='nav-link' to='/paint'>
+        Paint with pals!
+      </Link>
       <h1>Meet the Devs! </h1>
       <div className='bio-item'>
         <img alt='Dot Kubisiak' className='portrait' src='kubiphoto.jpg' />
