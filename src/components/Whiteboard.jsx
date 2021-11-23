@@ -8,41 +8,22 @@ import '../whiteboard.css';
 export default function Whiteboard() {
   const { supabase } = useAppContext();
   const canvasRef = useRef(null);
-  // const colorsRef = useRef(null);
   let whiteBoardMemory = null;
-const [paintColor, setPaintColor] = useState('');
+  const [paintColor, setPaintColor] = useState(null);
 
-const updatePaintColor = (event) => {
-  setPaintColor(event.target.value);
-  console.log(paintColor)
-}
+  const updatePaintColor = (event) => {
+    setPaintColor(event.target.value);
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    // const color = colorsRef.current;
     const context = canvas.getContext('2d');
-
-    const colorPicker = document.getElementById('color');
-    setPaintColor(colorPicker.value);
-    console.log(paintColor, 'paintColor');
-
     const current = {
-      color: colorPicker.value,
+      color: paintColor,
     };
-    console.log(current.color, 'current.color');
-
-    // const onColorUpdate = (event) => {
-    //   current.color = paintColor;
-    //   console.log(current.color, 'curent color');
-    // };
-
-    // for (let i = 0; i < colorPicker.length; i++) {
-    //   colorPicker[i].addEventListener('click', onColorUpdate, false);
-    // }
     let drawing = false;
 
     const drawLine = async (x0, y0, x1, y1, color, emit) => {
-      console.log(color);
       context.beginPath();
       context.moveTo(x0, y0);
       context.lineTo(x1, y1);
@@ -88,7 +69,7 @@ const updatePaintColor = (event) => {
         current.y,
         event.clientX || event.touches[0].clientX,
         event.clientY || event.touches[0].clientY,
-        paintColor,
+        current.color,
         true
       );
       current.x = event.clientX || event.touches[0].clientX;
@@ -196,10 +177,18 @@ const updatePaintColor = (event) => {
       <canvas ref={canvasRef} id='canvas' className='whiteboard' />
 
       <div className='colors'>
-        <Link className='nav-link' to='/'>Homepage</Link>
+        <Link className='nav-link' to='/'>
+          Homepage
+        </Link>
         <br />
-        <input onChange={(event)=>updatePaintColor(event)} className='color' id='color' type='color' value={paintColor}/>
-      
+        <input
+          onChange={(event) => updatePaintColor(event)}
+          className='color'
+          id='color'
+          type='color'
+          value={paintColor}
+        />
+
         <br />
         <button onClick={clear}>clear All</button>
         <button onClick={DownloadCanvasAsImage}>Save</button>
