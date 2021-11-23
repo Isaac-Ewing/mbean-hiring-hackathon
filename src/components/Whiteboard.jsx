@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../context/supaContext';
 import '../whiteboard.css';
@@ -8,31 +8,41 @@ import '../whiteboard.css';
 export default function Whiteboard() {
   const { supabase } = useAppContext();
   const canvasRef = useRef(null);
-  const colorsRef = useRef(null);
+  // const colorsRef = useRef(null);
   let whiteBoardMemory = null;
+const [paintColor, setPaintColor] = useState('');
+
+const updatePaintColor = (event) => {
+  setPaintColor(event.target.value);
+  console.log(paintColor)
+}
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const test = colorsRef.current;
+    // const color = colorsRef.current;
     const context = canvas.getContext('2d');
 
-    const colors = document.getElementsByClassName('color');
-    console.log(colors, 'the colors');
-    console.log(test);
+    const colorPicker = document.getElementById('color');
+    setPaintColor(colorPicker.value);
+    console.log(paintColor, 'paintColor');
+
     const current = {
-      color: colors.value,
+      color: colorPicker.value,
     };
+    console.log(current.color, 'current.color');
 
-    const onColorUpdate = (e) => {
-      current.color = e.target.value;
-    };
+    // const onColorUpdate = (event) => {
+    //   current.color = paintColor;
+    //   console.log(current.color, 'curent color');
+    // };
 
-    for (let i = 0; i < colors.length; i++) {
-      colors[i].addEventListener('click', onColorUpdate, false);
-    }
+    // for (let i = 0; i < colorPicker.length; i++) {
+    //   colorPicker[i].addEventListener('click', onColorUpdate, false);
+    // }
     let drawing = false;
 
     const drawLine = async (x0, y0, x1, y1, color, emit) => {
+      console.log(color);
       context.beginPath();
       context.moveTo(x0, y0);
       context.lineTo(x1, y1);
@@ -63,29 +73,29 @@ export default function Whiteboard() {
       }
     };
 
-    const onMouseDown = (e) => {
+    const onMouseDown = (event) => {
       drawing = true;
-      current.x = e.clientX || e.touches[0].clientX;
-      current.y = e.clientY || e.touches[0].clientY;
+      current.x = event.clientX || event.touches[0].clientX;
+      current.y = event.clientY || event.touches[0].clientY;
     };
 
-    const onMouseMove = (e) => {
+    const onMouseMove = (event) => {
       if (!drawing) {
         return;
       }
       drawLine(
         current.x,
         current.y,
-        e.clientX || e.touches[0].clientX,
-        e.clientY || e.touches[0].clientY,
-        current.color,
+        event.clientX || event.touches[0].clientX,
+        event.clientY || event.touches[0].clientY,
+        paintColor,
         true
       );
-      current.x = e.clientX || e.touches[0].clientX;
-      current.y = e.clientY || e.touches[0].clientY;
+      current.x = event.clientX || event.touches[0].clientX;
+      current.y = event.clientY || event.touches[0].clientY;
     };
 
-    const onMouseUp = (e) => {
+    const onMouseUp = (event) => {
       if (!drawing) {
         return;
       }
@@ -93,9 +103,9 @@ export default function Whiteboard() {
       drawLine(
         current.x,
         current.y,
-        e.clientX || e.touches[0].clientX,
-        e.clientY || e.touches[0].clientY,
-        current.color,
+        event.clientX || event.touches[0].clientX,
+        event.clientY || event.touches[0].clientY,
+        paintColor,
         true
       );
     };
@@ -143,21 +153,19 @@ export default function Whiteboard() {
           .select()
           .range(0, 1000)
           .order('id', { ascending: false });
-        console.log(data);
         data.forEach((item) => {
           onDrawingEvent(item.whiteboard_data);
         });
         whiteBoardMemory = supabase
           .from('whiteboard')
           .on('*', (payload) => {
-            console.log(payload.new.whiteboard_data, 'payload');
             onDrawingEvent(payload.new.whiteboard_data);
           })
           .subscribe();
       }
     };
     getWhiteBoardMemory();
-  }, []);
+  }, [paintColor]);
 
   const clear = async (event) => {
     event.preventDefault();
@@ -187,10 +195,10 @@ export default function Whiteboard() {
     <div>
       <canvas ref={canvasRef} id='canvas' className='whiteboard' />
 
-      <div ref={colorsRef} className='colors'>
-        <Link className='nav-link' to='/about'>Homepage</Link>
+      <div className='colors'>
+        <Link className='nav-link' to='/'>Homepage</Link>
         <br />
-        <input className='color' ref={colorsRef} id='color' type='color' />
+        <input onChange={(event)=>updatePaintColor(event)} className='color' id='color' type='color' value={paintColor}/>
       
         <br />
         <button onClick={clear}>clear All</button>

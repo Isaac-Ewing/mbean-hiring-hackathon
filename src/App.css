@@ -39,7 +39,7 @@ p, h2 {
 
 .about-description {
   max-width:550px;
-  padding: .5em;
+  font-size: 1.2em;
 }
 
 .nav-link {
