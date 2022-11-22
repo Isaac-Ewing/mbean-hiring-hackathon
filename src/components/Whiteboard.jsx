@@ -12,6 +12,8 @@ export default function Whiteboard() {
   const [paintColor, setPaintColor] = useState('');
 
   const updatePaintColor = (event) => {
+    setPaintColor('');
+    event.preventDefault();
     setPaintColor(event.target.value);
   };
 
@@ -28,6 +30,7 @@ export default function Whiteboard() {
       context.moveTo(x0, y0);
       context.lineTo(x1, y1);
       context.strokeStyle = color;
+      console.log(color)
       context.lineWidth = 2;
       context.stroke();
       context.closePath();
@@ -45,7 +48,7 @@ export default function Whiteboard() {
             y0: y0 / h,
             x1: x1 / w,
             y1: y1 / h,
-            color,
+            color: current.color,
           },
         },
       ]);
@@ -69,7 +72,7 @@ export default function Whiteboard() {
         current.y,
         event.clientX || event.touches[0].clientX,
         event.clientY || event.touches[0].clientY,
-        current.color,
+        paintColor,
         true
       );
       current.x = event.clientX || event.touches[0].clientX;
